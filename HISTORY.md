@@ -4,3 +4,7 @@
 2 - Criei um arquivo HISTORY.md para registrar as decisões tomadas e os porquês.
 3 - Criei um arquivo COMMENTS.md para registrar as reflexões e decisões tomadas.
 4 - Criei um devcontainer para poder trabalhar em um ambiente isolado.
+5 - Criei um arquivo Dockerfile para criar uma imagem da aplicação.
+6 - criei os arquivos em terraform para criar o cluster kubernetes local, usando o provider do kind.
+7 - Criei os arquivos yaml para a entrega da aplicação dentro do kubernetes.
+8 - criei os arquivos taskfile que representaria a pipeline rodando localmente. 
