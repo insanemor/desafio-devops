@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: desafio-devops-deployment
+  labels:
+    app: desafiodevops
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: desafiodevops
+  template:
+    metadata:
+      labels:
+        app: desafiodevops
+    spec:
+      containers:
+      - name: desafiodevops
+        image: insanemor/desafiodevops:latest
+        ports:
+        - containerPort: 8000
