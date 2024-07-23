@@ -7,4 +7,4 @@
 5 - Criei um arquivo Dockerfile para criar uma imagem da aplicação.
 6 - criei os arquivos em terraform para criar o cluster kubernetes local, usando o provider do kind.
 7 - Criei os arquivos yaml para a entrega da aplicação dentro do kubernetes.
-8 - criei os arquivos taskfile que representaria a pipeline rodando localmente. 
+8 - criei os arquivos taskfile que representaria a pipeline rodando localmente.
