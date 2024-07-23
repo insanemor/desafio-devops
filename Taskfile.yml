@@ -1,0 +1,76 @@
+version: '3'
+
+tasks:
+  terraform-init:
+    desc: "Run terraform init"
+    dir: terraform
+    cmds:
+      - terraform init
+
+  terraform-plan:
+    desc: "Run terraform plan"
+    dir: terraform
+    cmds:
+      - terraform plan -out=tfplan
+
+  terraform-apply:
+    desc: "Run terraform apply"
+    dir: terraform
+    cmds:
+      - terraform apply -auto-approve tfplan
+
+  terraform-all:
+    desc: "Run terraform init, plan and apply"
+    dir: terraform
+    cmds:
+      - task: terraform-init
+      - task: terraform-plan
+      - task: terraform-apply
+
+  terraform-destroy:
+    desc: "Run terraform destroy"
+    dir: terraform
+    cmds:
+      - terraform destroy -auto-approve
+
+  build:
+    desc: "Build the Docker image"
+    dir: app
+    cmds:
+      - docker build -t desafiodevops:latest .
+
+
+  kubectl-apply:
+    desc: "Apply Kubernetes manifests"
+    cmds:
+      - kubectl apply -f k8s/      
+
+  docker-login:
+    desc: "Log in to Docker Hub"
+    cmds:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin docker.io/insanemor/desafiodevops
+    env:
+      DOCKER_USERNAME: # Your Docker Hub username
+      DOCKER_PASSWORD: # Your Docker Hub password      
+
+  docker-push:
+    desc: "Push Docker image to Docker Hub"
+    cmds:
+      - task: docker-login
+      - docker tag localhost/desafiodevops:latest insanemor/desafiodevops:latest
+      - docker push insanemor/desafiodevops:latest      
+
+
+  start:
+    desc: "Start the pipeline"
+    cmds:
+      - task: terraform-all
+      - task: build
+      - task: docker-push
+      - task: kubectl-apply
+
+
+  destroy:
+    desc: "Destroy the infrastructure"
+    cmds:
+      - task: terraform-destroy
