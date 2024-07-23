@@ -1,0 +1,42 @@
+{
+	"name": "desafio-devops",
+
+	"image": "docker.io/library/python",
+
+	"features": {},
+
+	"forwardPorts": [3000],
+
+	"portsAttributes": {
+		"3000": {
+			"label": "Hello Remote World",
+			"onAutoForward": "notify"
+		}
+	},
+
+	// "postCreateCommand": "./.devcontainer/setup.sh",
+
+	"customizations": {
+		"vscode": {
+				"extensions": [
+					"dbaeumer.vscode-eslint",
+					"ms-azuretools.vscode-docker",
+					"aaron-bond.better-comments",
+					"streetsidesoftware.code-spell-checker-portuguese-brazilian",
+					"eamodio.gitlens",
+					"shd101wyy.markdown-preview-enhanced",
+					"Arjun.swagger-viewer"
+				]
+		}
+	},
+
+	"runArgs": [
+		"--env-file", ".env.local"
+	],
+
+	"mounts": [
+		"source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+	]
+
+
+}
