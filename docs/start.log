@@ -1,0 +1,107 @@
+task start
+task: [terraform-init] terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Reusing previous version of tehcyx/kind from the dependency lock file
+- Using previously-installed tehcyx/kind v0.5.1
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+task: [terraform-plan] terraform plan -out=tfplan
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # kind_cluster.default will be created
+  + resource "kind_cluster" "default" {
+      + client_certificate     = (known after apply)
+      + client_key             = (known after apply)
+      + cluster_ca_certificate = (known after apply)
+      + completed              = (known after apply)
+      + endpoint               = (known after apply)
+      + id                     = (known after apply)
+      + kubeconfig             = (known after apply)
+      + kubeconfig_path        = (known after apply)
+      + name                   = "desafio-devops"
+      + node_image             = (known after apply)
+      + wait_for_ready         = true
+
+      + kind_config {
+          + api_version = "kind.x-k8s.io/v1alpha4"
+          + kind        = "Cluster"
+
+          + node {
+              + role = "control-plane"
+            }
+          + node {
+              + role = "worker"
+            }
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "tfplan"
+task: [terraform-apply] terraform apply -auto-approve tfplan
+kind_cluster.default: Creating...
+kind_cluster.default: Still creating... [10s elapsed]
+kind_cluster.default: Still creating... [20s elapsed]
+kind_cluster.default: Still creating... [30s elapsed]
+kind_cluster.default: Creation complete after 34s [id=desafio-devops-]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+task: [build] docker build -t desafiodevops:latest .
+STEP 1/6: FROM python:3.9-slim
+STEP 2/6: WORKDIR /app
+--> Using cache 2a555f7e5ceff971892c5f420b6dfe31069ae95fa96e6b4a0f225f8180aa6fb1
+--> 2a555f7e5cef
+STEP 3/6: COPY . .
+--> Using cache 5b8d7154e8322bb094a1c43cf5526590e4def7539d01b6fe3324e6fb58431b98
+--> 5b8d7154e832
+STEP 4/6: RUN pip install --no-cache-dir -r requirements.txt
+--> Using cache 717a0462462dfbe57bb05c9402485febdf3c55617d3db9efcfb57de551c6f74e
+--> 717a0462462d
+STEP 5/6: EXPOSE 8000
+--> Using cache e042048a9cf1fb6a5375b4bd49db373c617d1ccccce13ff93d1fcd52af9f934c
+--> e042048a9cf1
+STEP 6/6: CMD ["gunicorn", "--log-level", "debug", "api:app"]
+--> Using cache fae59cf16078a6790740b40e5d4bc827c3823bcbe10c7338ceae61a9db682b00
+COMMIT desafiodevops:latest
+--> fae59cf16078
+Successfully tagged localhost/desafiodevops:latest
+Successfully tagged localhost/insanemor/desafiodevops:latest
+fae59cf16078a6790740b40e5d4bc827c3823bcbe10c7338ceae61a9db682b00
+task: [docker-login] echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin docker.io/insanemor/desafiodevops
+Login Succeeded!
+task: [docker-push] docker tag localhost/desafiodevops:latest insanemor/desafiodevops:latest
+task: [docker-push] docker push insanemor/desafiodevops:latest
+Getting image source signatures
+Copying blob c0f3c795b749 skipped: already exists  
+Copying blob 7464ec8699ac skipped: already exists  
+Copying blob efc2b5ad9eec skipped: already exists  
+Copying blob 27f64c4bf844 skipped: already exists  
+Copying blob 1a6e97f2166a skipped: already exists  
+Copying blob 1d44c5b3324e skipped: already exists  
+Copying blob b5a5be695879 skipped: already exists  
+Copying config fae59cf160 done   | 
+Writing manifest to image destination
+task: [kubectl-apply] kubectl apply -f k8s/
+deployment.apps/desafio-devops-deployment created
+ingress.networking.k8s.io/desafio-devops-ingress created
+service/desafio-devops-service created

@@ -1,0 +1,161 @@
+curl -sv localhost:8000/api/comment/new -X POST -H 'Content-Type: application/json' -d '{"email":"alice@example.com","comment":"first post!","content_id":1}'
+* Host localhost:8000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:8000...
+* Connected to localhost (::1) port 8000
+> POST /api/comment/new HTTP/1.1
+> Host: localhost:8000
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 68
+>
+* upload completely sent off: 68 bytes
+< HTTP/1.1 200 OK
+< Server: gunicorn/20.0.4
+< Date: Tue, 23 Jul 2024 21:31:29 GMT
+< Connection: close
+< Content-Type: application/json
+< Content-Length: 92
+<
+{
+"message": "comment created and associated with content_id 1",
+"status": "SUCCESS"
+}
+* Closing connection
+
+curl -sv localhost:8000/api/comment/new -X POST -H 'Content-Type: application/json' -d '{"email":"alice@example.com","comment":"ok, now I am gonna say something more useful","content_id":1}'
+* Host localhost:8000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:8000...
+* Connected to localhost (::1) port 8000
+> POST /api/comment/new HTTP/1.1
+> Host: localhost:8000
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 101
+>
+* upload completely sent off: 101 bytes
+< HTTP/1.1 200 OK
+< Server: gunicorn/20.0.4
+< Date: Tue, 23 Jul 2024 21:33:26 GMT
+< Connection: close
+< Content-Type: application/json
+< Content-Length: 92
+<
+{
+"message": "comment created and associated with content_id 1",
+"status": "SUCCESS"
+}
+* Closing connection
+
+curl -sv localhost:8000/api/comment/new -X POST -H 'Content-Type: application/json' -d '{"email":"bob@example.com","comment":"I agree","content_id":1}'
+* Host localhost:8000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:8000...
+* Connected to localhost (::1) port 8000
+> POST /api/comment/new HTTP/1.1
+> Host: localhost:8000
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 62
+>
+* upload completely sent off: 62 bytes
+< HTTP/1.1 200 OK
+< Server: gunicorn/20.0.4
+< Date: Tue, 23 Jul 2024 21:33:47 GMT
+< Connection: close
+< Content-Type: application/json
+< Content-Length: 92
+<
+{
+"message": "comment created and associated with content_id 1",
+"status": "SUCCESS"
+}
+* Closing connection
+
+curl -sv localhost:8000/api/comment/new -X POST -H 'Content-Type: application/json' -d '{"email":"bob@example.com","comment":"I guess this is a good thing","content_id":2}'
+* Host localhost:8000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:8000...
+* Connected to localhost (::1) port 8000
+> POST /api/comment/new HTTP/1.1
+> Host: localhost:8000
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 83
+>
+* upload completely sent off: 83 bytes
+< HTTP/1.1 200 OK
+< Server: gunicorn/20.0.4
+< Date: Tue, 23 Jul 2024 21:34:03 GMT
+< Connection: close
+< Content-Type: application/json
+< Content-Length: 92
+<
+{
+"message": "comment created and associated with content_id 2",
+"status": "SUCCESS"
+}
+* Closing connection
+
+curl -sv localhost:8000/api/comment/new -X POST -H 'Content-Type: application/json' -d '{"email":"charlie@example.com","comment":"Indeed, dear Bob, I believe so as well","content_id":2}'
+* Host localhost:8000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:8000...
+* Connected to localhost (::1) port 8000
+> POST /api/comment/new HTTP/1.1
+> Host: localhost:8000
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 97
+>
+* upload completely sent off: 97 bytes
+< HTTP/1.1 200 OK
+< Server: gunicorn/20.0.4
+< Date: Tue, 23 Jul 2024 21:34:26 GMT
+< Connection: close
+< Content-Type: application/json
+< Content-Length: 92
+<
+{
+"message": "comment created and associated with content_id 2",
+"status": "SUCCESS"
+}
+* Closing connection
+
+curl -sv localhost:8000/api/comment/new -X POST -H 'Content-Type: application/json' -d '{"email":"eve@example.com","comment":"Nah, you both are wrong","content_id":2}'
+* Host localhost:8000 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:8000...
+* Connected to localhost (::1) port 8000
+> POST /api/comment/new HTTP/1.1
+> Host: localhost:8000
+> User-Agent: curl/8.8.0
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 78
+>
+* upload completely sent off: 78 bytes
+< HTTP/1.1 200 OK
+< Server: gunicorn/20.0.4
+< Date: Tue, 23 Jul 2024 21:34:43 GMT
+< Connection: close
+< Content-Type: application/json
+< Content-Length: 92
+<
+{
+"message": "comment created and associated with content_id 2",
+"status": "SUCCESS"
+}
+* Closing connection
