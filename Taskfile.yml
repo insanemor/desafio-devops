@@ -60,6 +60,29 @@ tasks:
       - docker tag localhost/desafiodevops:latest insanemor/desafiodevops:latest
       - docker push insanemor/desafiodevops:latest      
 
+  port-forward:
+    desc: "Port-forward the Kubernetes service to localhost"
+    cmds:
+      - |
+        echo "Starting port-forward..."
+        nohup kubectl port-forward svc/desafio-devops-service 8000:80 -n default > docs/port-forward.log 2>&1 &
+        sleep 5  # Aguarda 5 segundos para garantir que o port-forward inicie corretamente
+        echo "Port-forward processes:"
+        ps aux | grep 'kubectl port-forward' | grep -v grep
+
+  kill-nohup:
+    desc: "Kill all nohup processes"
+    cmds:
+      - |
+        echo "Killing all nohup processes..."
+        ps aux | grep 'kubectl port-forward' | grep -v grep | awk '{print $2}'| xargs kill -9
+        echo "All nohup processes killed."        
+
+  k6-test:
+    desc: "Run K6 tests"
+    cmds:
+      - echo "Running K6 tests..."
+      - k6 run k6/tests.js  --out json=docs/test.json
 
   start:
     desc: "Start the pipeline"
@@ -68,9 +91,11 @@ tasks:
       - task: build
       - task: docker-push
       - task: kubectl-apply
-
+      - task: port-forward
+      - task: k6-test
 
   destroy:
     desc: "Destroy the infrastructure"
     cmds:
+      - task: kill-nohup
       - task: terraform-destroy
