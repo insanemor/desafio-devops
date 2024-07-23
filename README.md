@@ -6,8 +6,7 @@ A escolha de tecnologias é livre para a resolução do problema. Utilize os com
 
 Registre tudo: testes que foram executados, ideias que gostaria de implementar se tivesse tempo (explique como você as resolveria, se houvesse tempo), decisões que foram tomadas e seus porquês, arquiteturas que foram testadas e os motivos de terem sido modificadas ou abandonadas. Crie um arquivo COMMENTS.md ou HISTORY.md no repositório para registrar essas reflexões e decisões.
 
-
-# O Problema
+## O Problema
 
 O desafio que você deve resolver é a implantação da aplicação de Comentários em versão API (backend) usando ferramentas open source da sua preferência.
 
@@ -19,14 +18,14 @@ Os comandos de interação com a API são os seguintes:
 
 * Start da app
 
-```
+```bash
 cd app
 gunicorn --log-level debug api:app
 ```
 
 * Criando e listando comentários por matéria
 
-```
+```bash
 # matéria 1
 curl -sv localhost:8000/api/comment/new -X POST -H 'Content-Type: application/json' -d '{"email":"alice@example.com","comment":"first post!","content_id":1}'
 curl -sv localhost:8000/api/comment/new -X POST -H 'Content-Type: application/json' -d '{"email":"alice@example.com","comment":"ok, now I am gonna say something more useful","content_id":1}'
@@ -44,8 +43,7 @@ curl -sv localhost:8000/api/comment/list/1
 curl -sv localhost:8000/api/comment/list/2
 ```
 
-
-# O que será avaliado na sua solução?
+## O que será avaliado na sua solução?
 
 * Automação da infra, provisionamento dos hosts (IaaS)
 
@@ -55,8 +53,7 @@ curl -sv localhost:8000/api/comment/list/2
 
 * Monitoramento dos serviços e métricas da aplicação
 
-
-# Dicas
+## Dicas
 
 Use ferramentas e bibliotecas open source, mas documente as decisões e porquês;
 
